@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détection de Pollution - Sentinel-2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .image-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .image-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .image-box img {
+            max-width: 500px;
+            max-height: 500px;
+        }
+        .upload-form {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Détection de Zones Polluées dans les Images Sentinel-2</h1>
+        
+        <div class="upload-form">
+            <form method="post" enctype="multipart/form-data">
+                <h2>Télécharger une image Sentinel-2</h2>
+                <input type="file" name="file" accept=".tif,.tiff,.png,.jpg,.jpeg" required>
+                <div>
+                    <input type="checkbox" id="use_ndwi" name="use_ndwi">
+                    <label for="use_ndwi">Utiliser NDWI (au lieu de la bande B8)</label>
+                </div>
+                <button type="submit">Analyser</button>
+            </form>
+        </div>
+        
+        {% if error %}
+        <div class="error">
+            <strong>Erreur:</strong> {{ error }}
+        </div>
+        {% endif %}
+        
+        {% if original_image and result_image %}
+        <div class="image-container">
+            <div class="image-box">
+                <h3>Image Originale</h3>
+                <img src="{{ original_image }}" alt="Image originale">
+            </div>
+            <div class="image-box">
+                <h3>Résultat de Détection</h3>
+                <img src="{{ result_image }}" alt="Résultat de détection">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

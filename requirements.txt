@@ -1,0 +1,11 @@
+flask
+numpy
+opencv-python
+werkzeug
+
+flask==2.0.1
+tensorflow==2.6.0
+pillow==8.3.1
+numpy==1.19.5
+rasterio==1.2.6
+werkzeug==2.0.1
